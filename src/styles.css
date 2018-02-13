@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+	margin: 0px;
+}
+
+.example-container {
+  position: absolute !important;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+mat-sidenav {
+	padding: 1rem;
+	width: 300px;
+}
+
+hr {
+	border-style: solid;
+    border-color: lightgrey;
+    background-color: lightgrey;
+    margin-bottom: 1rem;
+}
+
+.input-full-width {
+	width: 100%;
+}
+
+.input-half-width {
+	width: 49%;
+}
+
+.side-nav-heading {
+	margin-bottom: .1rem !important;
+}
+
+mat-card {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1rem;
+}

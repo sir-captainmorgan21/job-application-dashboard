@@ -1,0 +1,62 @@
+<mat-sidenav-container class="example-container mat-typography">
+  <mat-sidenav #sidenav>
+  	<h2>Filters</h2>
+  	<hr>
+  	<div>
+		<mat-form-field class="input-full-width">
+	    	<input [(ngModel)]="filterObj.name" matInput placeholder="Applicant Name">
+	  	</mat-form-field>
+  	</div>
+  	<div>
+	  	<mat-form-field class="input-full-width">
+	    	<input [(ngModel)]="filterObj.position" matInput placeholder="Position">
+	  	</mat-form-field>
+  	</div>
+  	<hr>
+  	<h4 class="side-nav-heading">Application Date <button mat-icon-button (click)="clearDateRange()">
+			[clear]
+		</button></h4>
+  	<mat-form-field class="input-half-width">
+	  <input [(ngModel)]="filterObj.dateFrom" matInput [matDatepicker]="pickerfrom" placeholder="From" disabled>
+	  <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
+	  <mat-datepicker #pickerfrom disabled="false"></mat-datepicker>
+	</mat-form-field>
+	<mat-form-field class="input-half-width">
+	  <input [(ngModel)]="filterObj.dateTo" matInput [matDatepicker]="pickerto" placeholder="To" disabled>
+	  <mat-datepicker-toggle matSuffix [for]="pickerto"></mat-datepicker-toggle>
+	  <mat-datepicker #pickerto disabled="false"></mat-datepicker>
+	</mat-form-field>
+	<mat-form-field class="input-full-width">
+  		<mat-select [(ngModel)]="filterObj.experience" placeholder="Years of Experience (at least)">
+  			<mat-option [value]="null"></mat-option>
+			<mat-option *ngFor="let experience of [0,1,2,3,4,5,6,7,8,9,10]" [value]="experience">
+	      		{{ experience }}
+			</mat-option>
+  		</mat-select>
+	</mat-form-field>
+	<mat-form-field class="input-full-width">
+  		<mat-select [(ngModel)]="filterObj.availability" placeholder="Availability in a week (shifts)">
+  			<mat-option [value]="null"></mat-option>
+			<mat-option *ngFor="let shifts of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" [value]="shifts">
+	      		{{ shifts }}
+			</mat-option>
+  		</mat-select>
+	</mat-form-field>
+  </mat-sidenav>
+  <mat-sidenav-content>
+  	<div class="sort-container">
+		<button mat-icon-button (click)="sidenav.toggle()">
+			<i class="material-icons">filter_list</i>
+		</button> |&nbsp;&nbsp;&nbsp;
+		<mat-form-field>
+	  		<mat-select [(ngModel)]="filterObj.sort" placeholder="Sort (Least to Greatest)">
+	  			<mat-option [value]="null"></mat-option>
+				<mat-option *ngFor="let option of sortOptions" [value]="option">
+		      		{{ option }}
+				</mat-option>
+	  		</mat-select>
+  		</mat-form-field>
+	</div>
+  	<app-job-application [application]="application" *ngFor="let application of jobApplications | applicationFilter: filterObj.name: filterObj.position: filterObj.dateFrom: filterObj.dateTo: filterObj.experience: filterObj.availability: filterObj.sort">Simple card</app-job-application>
+  </mat-sidenav-content>
+</mat-sidenav-container>

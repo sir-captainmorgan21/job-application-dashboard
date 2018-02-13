@@ -1,0 +1,22 @@
+<mat-card>
+	<mat-card-title>
+		<p>Application Id : {{application.id}}</p>
+	</mat-card-title>
+	<mat-card-content class="app-content">
+		<p>Applicant: {{application.name}} <br>
+		Position: {{application.position}}</p>
+		<p>Applied: {{application.applied}} <br>
+		Experience: {{application.experience}}</p>
+		<hr>
+		Availability
+		<div>
+			M : {{application.availability.M}}, T : {{application.availability.T}}, W : {{application.availability.W}}, Th : {{application.availability.Th}}, F : {{application.availability.F}}, S : {{application.availability.S}}, Su : {{application.availability.Su}}
+		</div>
+		<hr>
+		<h3>Questions</h3>
+		<div *ngFor="let question of application.questions" style="padding-bottom: 1rem">
+			<div>{{question.text}}</div>
+			<div>{{question.answer}}</div>
+		</div>
+	</mat-card-content>
+</mat-card>

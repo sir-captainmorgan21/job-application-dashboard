@@ -1,0 +1,22 @@
+<mat-card>
+	<mat-card-title class="title-content">
+		<p>Application Id : {{application.id}}</p>
+		<span *ngIf="!isFavApp()" class="title-content-right" (click)="addToFavs()">
+			<button mat-icon-button><i class="material-icons">star_border</i></button>
+		</span>
+		<span *ngIf="isFavApp()" class="title-content-right" (click)="removeFromFavs()">
+			<button mat-icon-button><i class="material-icons">star</i></button>
+		</span>
+	</mat-card-title>
+	<mat-card-content class="app-content">
+		<p>Applicant: {{application.name}} <br>
+		Position: {{application.position}}</p>
+		<p>Applied: {{application.applied}} <br>
+		Experience: {{application.experience}}</p>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-icon-button [routerLink]="['/applications/' + application.id]">
+			<i class="material-icons">more_horiz</i>
+		</button>
+	</mat-card-actions>
+</mat-card>
