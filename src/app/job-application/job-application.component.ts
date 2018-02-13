@@ -22,6 +22,7 @@ export class JobApplicationComponent implements OnInit {
 
   addToFavs(): void {
     this.jobApplicationService.favApplications.push(this.application.id);
+    this.jobApplicationService.storeFavAppsToSessionStorage();
   }
 
   removeFromFavs(): void {
@@ -29,6 +30,7 @@ export class JobApplicationComponent implements OnInit {
     _.remove(this.jobApplicationService.favApplications, function(applicationId) {
       return that.application.id === applicationId;
     });
+    this.jobApplicationService.storeFavAppsToSessionStorage();
   }
 
 }

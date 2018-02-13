@@ -28,5 +28,21 @@ export class JobApplicationService {
     }
     return false;
   }
+  
+  storeFilterObjToSessionStorage(filterObj: any): void {
+      sessionStorage.setItem('filterObj', JSON.stringify(filterObj));
+  }
+  
+  getFilterObjFromSessionStorage(): any {
+      return JSON.parse(sessionStorage.getItem('filterObj'));
+  }
+  
+  storeFavAppsToSessionStorage() {
+      sessionStorage.setItem('favApplications', JSON.stringify(this.favApplications));
+  }
+  
+  getFavAppsFromSessionStorage() {
+      return JSON.parse(sessionStorage.getItem('favApplications'));
+  }
 
 }

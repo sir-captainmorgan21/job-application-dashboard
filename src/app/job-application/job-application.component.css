@@ -4,9 +4,17 @@
 	margin-bottom: 0px;
 }
 
+.app-id {
+	grid-column: span 2;
+}
+
+.fav-start {
+	grid-column: span 1;
+}
+
 .title-content {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 }
 
 .title-content-right {
