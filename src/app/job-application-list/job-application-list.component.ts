@@ -2,7 +2,10 @@ import {JobApplicationService} from '../services/job-application.service';
 import {Component, OnInit} from '@angular/core';
 import {ApplicationFilterPipe} from '../pipes/application-filter.pipe';
 import {FormsModule} from '@angular/forms';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
+
+const MAX_NUM_OF_EXPERIENCE = 11;
+const MAX_NUM_OF_SHIFTS = 21;
 
 @Component({
   selector: 'app-job-application-list',
@@ -23,6 +26,9 @@ export class JobApplicationListComponent implements OnInit {
     'sort': null
   };
 
+  public experienceOptions = [...new Array(MAX_NUM_OF_EXPERIENCE).keys()];
+  public shiftOptions = [...new Array(MAX_NUM_OF_SHIFTS).keys()];
+
   constructor(private jobApplicationService: JobApplicationService) {}
 
   ngOnInit() {
@@ -35,18 +41,18 @@ export class JobApplicationListComponent implements OnInit {
     this.filterObj.dateTo = null;
     this.jobApplicationService.storeFilterObjToSessionStorage(this.filterObj);
   }
-  
+
   public updateFilterObjSessionStorage() {
       this.jobApplicationService.storeFilterObjToSessionStorage(this.filterObj);
   }
-  
-  private loadSessionData(){
-      let sessionFilterObj = this.jobApplicationService.getFilterObjFromSessionStorage();
-      if(sessionFilterObj) {
+
+  private loadSessionData() {
+      const sessionFilterObj = this.jobApplicationService.getFilterObjFromSessionStorage();
+      if (sessionFilterObj) {
           this.filterObj = sessionFilterObj;
       }
-      let sessionFavApps = this.jobApplicationService.getFavAppsFromSessionStorage();
-      if(sessionFavApps) {
+      const sessionFavApps = this.jobApplicationService.getFavAppsFromSessionStorage();
+      if (sessionFavApps) {
           this.jobApplicationService.favApplications = sessionFavApps;
       }
   }

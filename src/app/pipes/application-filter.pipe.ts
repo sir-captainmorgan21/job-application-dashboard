@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'applicationFilter'
@@ -69,45 +69,63 @@ export class ApplicationFilterPipe implements PipeTransform {
   }
 
   private filterByAvailability(applications: any, availability: any) {
+    const that = this;
     if (availability) {
-       return applications.filter(function(app: any) {
-        const appAvailability = app.availability;
-        const availabilityTotal = appAvailability.M +
-          appAvailability.T + appAvailability.W + appAvailability.Th + appAvailability.F + appAvailability.S + appAvailability.Su;
-        return availabilityTotal >= availability;
+      return applications.filter(function(app: any) {
+        return that.sumAvailability(app.availability) >= availability;
       });
     }
     return applications;
   }
 
-  private sort(applications: any, sort: any) {
+  private sumAvailability(availability) {
+    let sum = 0;
+    for (const day in availability) {
+      if (availability.hasOwnProperty(day)) {
+        sum += availability[day];
+      }
+    }
+    return sum;
+  }
+
+  private sort(applications: any, sort: any): any {
     if (sort) {
-      if (sort === 'availability') {
-        return applications.sort(function(a, b) {
-          const aTotal = a.availability.M + a.availability.T + a.availability.W + a.availability.Th +
-             a.availability.F + a.availability.S + a.availability.Su;
-          const bTotal = b.availability.M + b.availability.T + b.availability.W + b.availability.Th +
-             b.availability.F + b.availability.S + b.availability.Su;
-          if (aTotal > bTotal) {
-            return 1;
-          }
-          if (aTotal < bTotal) {
-            return -1;
-          }
-          return 0;
-        });
-      } else if (sort === 'experience') {
-        return applications.sort(function(a, b) {
-          if (a.experience > b.experience) {
-            return 1;
-          }
-          if (a.experience < b.experience) {
-            return -1;
-          }
-          return 0;
-        });
+      switch (sort) {
+        case 'availability':
+          return this.sortByAvailability(applications);
+        case 'experience':
+          return this.sortByExperience(applications);
+        default:
+          return applications;
       }
     }
     return applications;
+  }
+
+  private sortByAvailability(applications: any): any {
+    const that = this;
+    return applications.sort(function(a, b) {
+      const aTotal = that.sumAvailability(a.availability);
+      const bTotal = that.sumAvailability(b.availability);
+      if (aTotal > bTotal) {
+        return 1;
+      }
+      if (aTotal < bTotal) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
+  private sortByExperience(applications: any): any {
+    return applications.sort(function(a, b) {
+      if (a.experience > b.experience) {
+        return 1;
+      }
+      if (a.experience < b.experience) {
+        return -1;
+      }
+      return 0;
+    });
   }
 }

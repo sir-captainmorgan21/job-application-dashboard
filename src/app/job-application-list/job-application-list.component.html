@@ -29,7 +29,7 @@
 	<mat-form-field class="input-full-width">
   		<mat-select [(ngModel)]="filterObj.experience" (change)="updateFilterObjSessionStorage()" placeholder="Years of Experience (at least)">
   			<mat-option [value]="null"></mat-option>
-			<mat-option *ngFor="let experience of [0,1,2,3,4,5,6,7,8,9,10]" [value]="experience">
+			<mat-option *ngFor="let experience of experienceOptions" [value]="experience">
 	      		{{ experience }}
 			</mat-option>
   		</mat-select>
@@ -37,7 +37,7 @@
 	<mat-form-field class="input-full-width">
   		<mat-select [(ngModel)]="filterObj.availability" (change)="updateFilterObjSessionStorage()" placeholder="Availability in a week (shifts)">
   			<mat-option [value]="null"></mat-option>
-			<mat-option *ngFor="let shifts of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" [value]="shifts">
+			<mat-option *ngFor="let shifts of shiftOptions" [value]="shifts">
 	      		{{ shifts }}
 			</mat-option>
   		</mat-select>
