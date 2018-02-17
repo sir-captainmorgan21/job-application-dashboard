@@ -1,15 +1,15 @@
 <mat-sidenav-container class="example-container mat-typography">
-  <mat-sidenav #sidenav>
+  <mat-sidenav mode="over" #sidenav>
   	<h2>Filters</h2>
   	<hr>
   	<div>
 		<mat-form-field class="input-full-width">
-	    	<input [(ngModel)]="filterObj.name" (change)="updateFilterObjSessionStorage()" matInput placeholder="Applicant Name">
+	    	<input [(ngModel)]="applicationListFilter.name" (change)="updateFilterObjSessionStorage()" matInput placeholder="Applicant Name">
 	  	</mat-form-field>
   	</div>
   	<div>
 	  	<mat-form-field class="input-full-width">
-	    	<input [(ngModel)]="filterObj.position" (change)="updateFilterObjSessionStorage()" matInput placeholder="Position">
+	    	<input [(ngModel)]="applicationListFilter.position" (change)="updateFilterObjSessionStorage()" matInput placeholder="Position">
 	  	</mat-form-field>
   	</div>
   	<hr>
@@ -17,17 +17,17 @@
 			[clear]
 		</button></h4>
   	<mat-form-field class="input-half-width">
-	  <input [(ngModel)]="filterObj.dateFrom" (dateInput)="updateFilterObjSessionStorage()" matInput [matDatepicker]="pickerfrom" placeholder="From" disabled>
+	  <input [(ngModel)]="applicationListFilter.dateFrom" (dateInput)="updateFilterObjSessionStorage()" matInput [matDatepicker]="pickerfrom" placeholder="From" disabled>
 	  <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
 	  <mat-datepicker #pickerfrom disabled="false"></mat-datepicker>
 	</mat-form-field>
 	<mat-form-field class="input-half-width">
-	  <input [(ngModel)]="filterObj.dateTo" (dateInput)="updateFilterObjSessionStorage()" matInput [matDatepicker]="pickerto" placeholder="To" disabled>
+	  <input [(ngModel)]="applicationListFilter.dateTo" (dateInput)="updateFilterObjSessionStorage()" matInput [matDatepicker]="pickerto" placeholder="To" disabled>
 	  <mat-datepicker-toggle matSuffix [for]="pickerto"></mat-datepicker-toggle>
 	  <mat-datepicker #pickerto disabled="false"></mat-datepicker>
 	</mat-form-field>
 	<mat-form-field class="input-full-width">
-  		<mat-select [(ngModel)]="filterObj.experience" (change)="updateFilterObjSessionStorage()" placeholder="Years of Experience (at least)">
+  		<mat-select [(ngModel)]="applicationListFilter.experience" (change)="updateFilterObjSessionStorage()" placeholder="Years of Experience (at least)">
   			<mat-option [value]="null"></mat-option>
 			<mat-option *ngFor="let experience of experienceOptions" [value]="experience">
 	      		{{ experience }}
@@ -35,7 +35,7 @@
   		</mat-select>
 	</mat-form-field>
 	<mat-form-field class="input-full-width">
-  		<mat-select [(ngModel)]="filterObj.availability" (change)="updateFilterObjSessionStorage()" placeholder="Availability in a week (shifts)">
+  		<mat-select [(ngModel)]="applicationListFilter.availability" (change)="updateFilterObjSessionStorage()" placeholder="Availability in a week (shifts)">
   			<mat-option [value]="null"></mat-option>
 			<mat-option *ngFor="let shifts of shiftOptions" [value]="shifts">
 	      		{{ shifts }}
@@ -49,7 +49,7 @@
 			<i class="material-icons">filter_list</i>
 		</button> |&nbsp;&nbsp;&nbsp;
 		<mat-form-field>
-	  		<mat-select [(ngModel)]="filterObj.sort" (change)="updateFilterObjSessionStorage()" placeholder="Sort (Least to Greatest)">
+	  		<mat-select [(ngModel)]="applicationListFilter.sortOption" (change)="updateFilterObjSessionStorage()" placeholder="Sort (Least to Greatest)">
 	  			<mat-option [value]="null"></mat-option>
 				<mat-option *ngFor="let option of sortOptions" [value]="option">
 		      		{{ option }}
@@ -57,6 +57,6 @@
 	  		</mat-select>
   		</mat-form-field>
 	</div>
-  	<app-job-application [application]="application" *ngFor="let application of jobApplications | applicationFilter: filterObj.name: filterObj.position: filterObj.dateFrom: filterObj.dateTo: filterObj.experience: filterObj.availability: filterObj.sort">Simple card</app-job-application>
+  	<app-job-application [application]="application" *ngFor="let application of jobApplications | applicationFilter: applicationListFilter">Simple card</app-job-application>
   </mat-sidenav-content>
 </mat-sidenav-container>

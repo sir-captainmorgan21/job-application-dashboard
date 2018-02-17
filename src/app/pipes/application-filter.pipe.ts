@@ -1,23 +1,24 @@
+import { ApplicationListFilter } from '../shared/application-list-filter.model';
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'applicationFilter'
+  name: 'applicationFilter',
+  pure: false
 })
 export class ApplicationFilterPipe implements PipeTransform {
 
-  transform(applications: any, name: any, position: any,
-    dateFrom: any, dateTo: any, experience: any, availability: any, sort: any): any {
+  transform(applications: Array<any>, applicationListFilter: ApplicationListFilter): any {
     let filteredApplications = applications;
-    filteredApplications = this.filterByName(filteredApplications, name);
-    filteredApplications = this.filterByPosition(filteredApplications, position);
-    filteredApplications = this.filterByDateRange(filteredApplications, dateFrom, dateTo);
-    filteredApplications = this.filterByExperience(filteredApplications, experience);
-    filteredApplications = this.filterByAvailability(filteredApplications, availability);
-    filteredApplications = this.sort(filteredApplications, sort);
+    filteredApplications = this.filterByName(filteredApplications, applicationListFilter.name);
+    filteredApplications = this.filterByPosition(filteredApplications, applicationListFilter.position);
+    filteredApplications = this.filterByDateRange(filteredApplications, applicationListFilter.dateFrom, applicationListFilter.dateTo);
+    filteredApplications = this.filterByExperience(filteredApplications, applicationListFilter.experience);
+    filteredApplications = this.filterByAvailability(filteredApplications, applicationListFilter.availability);
+    filteredApplications = this.sort(filteredApplications, applicationListFilter.sortOption);
     return filteredApplications;
   }
 
-  private filterByName(applications: any, nameFilter: any): boolean {
+  private filterByName(applications: any, nameFilter: any): Array<any> {
     if (nameFilter) {
       return applications.filter(function(app: any) {
         return app.name.toLowerCase().startsWith(nameFilter.toLowerCase());
@@ -26,7 +27,7 @@ export class ApplicationFilterPipe implements PipeTransform {
     return applications;
   }
 
-  private filterByPosition(applications: any, positionFilter: any): boolean {
+  private filterByPosition(applications: any, positionFilter: any): Array<any> {
     if (positionFilter) {
       return applications.filter(function(app: any) {
         return app.position.toLowerCase().startsWith(positionFilter.toLowerCase());
@@ -35,7 +36,7 @@ export class ApplicationFilterPipe implements PipeTransform {
     return applications;
   }
 
-  private filterByDateRange(applications: any, dateFrom: any, dateTo: any) {
+  private filterByDateRange(applications: any, dateFrom: any, dateTo: any): Array<any> {
     const that = this;
     if (dateFrom && dateTo) {
       return applications.filter(function(app: any) {
@@ -59,7 +60,7 @@ export class ApplicationFilterPipe implements PipeTransform {
     return appliedDate;
   }
 
-  private filterByExperience(applications: any, experience: any) {
+  private filterByExperience(applications: any, experience: any): Array<any> {
     if (experience) {
       return applications.filter(function(app: any) {
         return app.experience >= experience;
@@ -68,7 +69,7 @@ export class ApplicationFilterPipe implements PipeTransform {
     return applications;
   }
 
-  private filterByAvailability(applications: any, availability: any) {
+  private filterByAvailability(applications: any, availability: any): Array<any> {
     const that = this;
     if (availability) {
       return applications.filter(function(app: any) {
@@ -88,7 +89,7 @@ export class ApplicationFilterPipe implements PipeTransform {
     return sum;
   }
 
-  private sort(applications: any, sort: any): any {
+  private sort(applications: any, sort: any): Array<any> {
     if (sort) {
       switch (sort) {
         case 'availability':
@@ -117,7 +118,7 @@ export class ApplicationFilterPipe implements PipeTransform {
     });
   }
 
-  private sortByExperience(applications: any): any {
+  private sortByExperience(applications: any): Array<any> {
     return applications.sort(function(a, b) {
       if (a.experience > b.experience) {
         return 1;
